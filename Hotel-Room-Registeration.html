@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+<script  src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<title>Hotel Registeration Form</title>
+<style>
+.form-container{
+   margin:0px 100px 0px 100px;
+   background-color: blanchedalmond;
+   padding:25px;
+}
+@media screen and (max-width:600px){
+   .form-container{
+      margin:0px 10px 0px 10px;
+   }
+}
+ @media screen and (orientation:landscape){
+   .form-container{
+      margin:0px 200px 0px 200px;
+   }
+ }
+</style>
+<script>
+  function billClick(){
+   document.getElementById("lblName").textContent = document.getElementById("txtName").value;
+   document.getElementById("lblDate").textContent = document.getElementById("txtDate").value;
+   document.getElementById("lblOut").textContent = document.getElementById("txtOut").value;
+   var CheckInDay = parseInt(document.getElementById("txtDay").value);
+   var CheckOutDate = parseInt(document.getElementById("txtOut").value)
+   var person = parseInt(document.getElementById("txtperson").value);
+   var AdvanceAmt = parseInt(document.getElementById("txtAmt").value);
+
+     var RoomName ="";
+     var RoomCost = 0;
+
+     var AmenitiesName ="";
+     var AmenitiesCost = 0;
+
+     var optDelux = document.getElementById("optDelux");
+     var optSuite = document.getElementById("optSuite");
+
+     if(optDelux.checked){
+      RoomName = optDelux.value;
+      RoomCost = ((2500*person)*CheckInDay);
+     }
+     if(optSuite.checked){
+      RoomName = optSuite.value;
+      RoomCost = ((4000*person)*CheckInDay);
+     }
+      var AC = document.getElementById("optAC");
+      var Locker = document.getElementById("optLocker");
+
+      if(optAC.checked){
+      AmenitiesName +=optAC.value + "<br>";
+      AmenitiesCost = (1000*person)*CheckInDay;
+      RoomCost +=AmenitiesCost;
+     }
+     if(optLocker.checked){
+      AmenitiesName +=optLocker.value + "<br>";
+      AmenitiesCost =(300*person)*CheckInDay;
+      RoomCost +=AmenitiesCost;
+   }
+    if(person > 2){
+      RoomCost +=(1000*CheckInDay*(person-2));
+    }
+   document.getElementById("lblPerson").textContent = person;
+   document.getElementById("lblDay").textContent = CheckInDay;
+   document.getElementById("lblOut").textContent = CheckOutDate;
+   document.getElementById("lblRoom").innerHTML = RoomName;
+   document.getElementById("lblAmenities").innerHTML = AmenitiesName;
+
+   document.getElementById("lblTotal").innerHTML = RoomCost.toLocaleString('en-in',{style:'currency',currency:'INR'});
+   document.getElementById("lblAdvAmt").textContent = AdvanceAmt.toLocaleString('en-in',{style:'currency',currency:'INR'});
+   document.getElementById("lblBalAmt").innerHTML = (RoomCost-AdvanceAmt).toLocaleString('en-in',{style:'currency',currency:'INR'});
+} 
+</script>
+</head>
+<body class="container-fluid bg-silver"><img src="../public/images/Hotel-banner1.png" height="30%" width="100%">
+  <div class="form-container">
+  <header class="text-center border border-4 border-success p-2 mt-3 bg-#00ff00 text-dark rounded rounded-4">
+     <h2>Hotel Registeration Form</h2>              
+  </header>
+  <main class="container my-3">
+      <div class="form-control text-center">
+<h5 class="text-black border border-black border-4 rounded rounded-1 bg-warning">Customer Info</h5>
+<dl class="row">
+  <dt class="col-7"><label value="Name" class="form-label">Customer Name:</label></dt>
+   <dd class="col-5"><input type="text" class="form-control" id="txtName"></dd>
+   <dt class="col-7"><lable value="check-in-date" class="form-lable">Check In Date:</lable></dt> 
+   <dd class="col-5"><input type="date" class="form-control" id="txtDate"></dd>
+   <dt class="col-7"><label value="day" class="from-label">Total NO Of Days:</label></dt> 
+   <dd class="col-5"><input type="number" class="form-control" id="txtDay"></dd>  
+   <dt class="col-7"><label value="check-in-out" class="form-label">Check Out Date :</label></dt>
+   <dd class="col-5"><input type="date" class="form-control" id="txtOut"></dd>
+   <dt class="col-7"><label value="person" class="form-lable">Total No Of Person:</label></dt>
+   <dd class="col-5"><input type="number" class="form-control" id="txtperson">
+</dd>
+</dl>    
+</div>
+    <div class="container form-control text-center my-4">
+   <h5 class="my-4 border border-4 border-black rounded rounded-1 bg-warning" >Select Room Type</h5>
+   <div class="d-flex justify-content-evenly">
+   <div>
+      <img src="../public/images/Delux-roompng.png" width="100%" height="80%" alt="delux-room"> 
+      <div class="my-3 form-check">
+      <input type="radio" name="room" class="form-check-input" value="DeluxRoom" id="optDelux">
+      <label for="room" class="form-check-label">Delux Room(&#8377;2500)
+      </label>      
+      </div>     
+   </div> 
+   <div>
+        <img src="../public/images/Suite-Room.png" width="100%" height="80%"  alt="suite-room">   
+        <div class="my-3 form-check">
+        <input type="radio" name="room" class="form-check-input" value="SuiteRoom" id="optSuite">
+        <label for="room" class="form-check-label">Suite Room(&#8377;4000)</label>  
+</div> 
+</div>                    
+</div>
+</div>  
+   <div class="container form-control text-center my-4">
+      <h5 class="my-3 border border-4 border-black bg-warning rounded rounded-2 text-black">Select Amenities</h5>
+      <div class="d-flex justify-content-evenly">
+         <div>
+          <img src="../public/images/AC1.png" height="80%" alt="delux-room">
+          <div class="my-3 form-switch">
+            <input type="checkbox" class="form-check-input" value="AC" id="optAC">
+            <label for="room" class="form-label">AC(&#8377;1000)</label>
+</div>  
+</div>
+<div>
+   <img src="../public/images/Locker-1.png" height="80%" width="80%" alt="suite-room">
+   <div class="my-3 form-switch">
+   <input type="checkbox" class ="form-check-input" value ="Locker" id="optLocker">
+   <label for="room" class="form-label">Locker(&#8377;300)</label>
+</div>
+</div>
+</div>
+</div> 
+  <div class="container form-control text-center my-4">
+   <h5 class="my-4 border border-4 border-black rounded  bg-warning text-black rounded-2">Advance Amount</h5>
+   <dl class="row">
+      <dt class="col-7"><label for="Advance">Advance Amount:</label></dt>
+      <dd class="col-5"><input type="number" id="txtAmt" class="form-control" required></dd>
+   </dl>
+  </div>  
+  <div class="container form-control text-center my-4 p-4">
+   <button onclick="billClick()" class="btn btn-success" data-bs-target="#billSummary" data-bs-toggle="modal" >Registeration</button>
+  </div> 
+  <div class="modal fade" id="billSummary">
+   <div class="modal-dialog">
+      <div class="modal-content bg-dark-subtle">
+         <div class="modal-header">
+            <h4 class="modal-title text-black fw-bold">Your Hotel Room Bill</h4>
+         </div>
+         <div class="modal-body">
+            <dl class="row">
+               <dt class="col-6">Customer Name:</dt>
+               <dd class="col-6" id="lblName"></dd>
+               <dt class="col-6">Check In Date:</dt>
+               <dd class="col-6" id="lblDate"></dd>
+               <dt class="col-6">Total Number Of Days:</dt>
+               <dd class="col-6" id="lblDay"></dd>
+               <dt class="col-6">Total No Of Persons:</dt>
+               <dd class="col-6" id="lblPerson"></dd>
+               <dt class="col-6">Check Out Date</dt>
+               <dd class="col-6" id="lblOut"></dd>
+               <dt class="col-6">Room Type:</dt>
+               <dd class="col-6" id="lblRoom"></dd>
+               <dt class="col-6">Amenities:</dt>
+               <dd class="col-6" id="lblAmenities"></dd>
+               <dt class="col-6">Total Amount:</dt>
+               <dd class="col-6" id="lblTotal"></dd>
+               <dt class="col-6">Advance Amount:</dt>
+               <dd class="col-6" id="lblAdvAmt"></dd>
+               <dt class="col-6">Balance Amount:</dt>
+               <dd class="col-6" id="lblBalAmt"></dd>
+            </dl>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+         </div>
+      </div>
+   </div>
+  </div>
+</main>        
+</div>          
+</body>
+
+</html>
